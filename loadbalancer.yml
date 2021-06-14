@@ -1,0 +1,28 @@
+- hosts: tag_Name_Main
+  tasks:
+  - name: Installing Apache webserver.
+    package:
+     name: "httpd"
+     state: present
+  - name: copying the html contents.
+    copy:
+     dest: "/var/www/html/index.html"
+     content: "Load balancer configured on AWS on single Click using ansible!!!"
+  - name: restarting httpd service.
+    service:
+     name: "httpd"
+     state: restarted
+- hosts: tag_Name_lb
+  tasks:
+  - name: Installing HAProxy
+    package:
+     name: "haproxy"
+     state: present
+  - name: Updating configuration file of HAproxy
+    template:
+     src: "/root/task/haproxy.cfg.j2"
+     dest: "/etc/haproxy/haproxy.cfg"
+  - name: starting HAProxy service.
+    service:
+     name: "haproxy"
+     state: restarted

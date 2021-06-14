@@ -1,0 +1,40 @@
+- hosts: 127.0.0.1
+  tasks:
+  - name: "provisioning os"
+    ec2_instance:
+     region: ap-south-1
+     image_id: ami-08e0ca9924195beba
+     instance_type: t2.micro
+     wait: yes
+     vpc_subnet_id: subnet-e21b128a
+     security_group: sg-0a1d8512af9604b6e
+     key_name: "mykey22"
+     name: Main
+     state: present
+
+  - name: "provisioning os"
+    ec2_instance:
+     region: ap-south-1
+     image_id: ami-08e0ca9924195beba
+     instance_type: t2.micro
+     wait: yes
+     vpc_subnet_id: subnet-e21b128a
+     security_group: sg-0a1d8512af9604b6e
+     key_name: "mykey22"
+     name: lb
+     state: present
+
+  - name: "provisioning os"
+    ec2_instance:
+     region: ap-south-1
+     image_id: ami-0ad704c126371a549
+     instance_type: t2.micro
+     wait: yes
+     vpc_subnet_id: subnet-e21b128a
+     security_group: sg-0a1d8512af9604b6e
+     key_name: "mykey22"
+     name: lb
+     state: present
+  - name: "Configuring Load Balancer"
+    shell:
+     cmd: "ansible-playbook /etc/ansible/loadbalancer.yml"
